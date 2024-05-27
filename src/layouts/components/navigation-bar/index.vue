@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-background border border-black-10">
+  <div class="navbar flex justify-between px-20 py-28 border-b-1 border border-black-10">
     <a class="btn btn-ghost text-xl">daisyUI</a>
 
     <div class="dropdown dropdown-bottom dropdown-end">
