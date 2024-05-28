@@ -2,6 +2,8 @@
   <div class="navbar flex justify-between px-20 py-28 border-b-1 border border-black-10">
     <a class="btn btn-ghost text-xl">daisyUI</a>
 
+    <Breadcrumb />
+
     <div class="dropdown dropdown-bottom dropdown-end">
       <div tabindex="0" role="button" class="btn m-1">
         <IconColorSwatch :size="20" />
@@ -31,6 +33,7 @@
 </template>
 
 <script lang="ts" setup>
+import Breadcrumb from './breadcrumb/index.vue'
 import { useTheme, themeDefs } from '@/hooks'
 import type { ThemeDef } from '@/hooks'
 
