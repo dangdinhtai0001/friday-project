@@ -1,6 +1,6 @@
 <template>
   <div class="bg-primary-background h-screen">
-    <div class="flex w-full">
+    <div class="flex w-full h-full">
       <LeftSideBar />
       <div class="w-full">
         <Header />
