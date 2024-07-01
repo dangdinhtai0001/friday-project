@@ -73,6 +73,7 @@ const handleOnToggleSidebar = async () => {
     toggleSidebar()
   }
 
+  // @ts-ignore: Unreachable code error
   if (isCollapsed!.value) {
     await motionInstance.apply('rotate-180')
     motionInstance.variant.value = 'rotate-180'

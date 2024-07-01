@@ -15,6 +15,7 @@ const motionInstance = useMotion(sidebarContainerTarget, {
   expanded: { width: '212px' }
 })
 
+// @ts-ignore: Unreachable code error
 watch(isCollapsed, (newValue) => {
   if (newValue) {
     // Nếu isCollapsed là true, thay đổi width
