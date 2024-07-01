@@ -1,10 +1,47 @@
 <template>
-  <div class="navbar flex justify-between px-20 py-28 border-b-1 border border-black-10">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+  <div class="navbar flex justify-between border-b-1 border border-black-10 p-0">
+    <!------------------------------------------------- || Breadcrumb group || ------------------------------------------------->
+    <div class="flex gap-8">
+      <button class="btn border-0 bg-transparent shadow-transparent" @click="toggleSidebar">
+        <IconLayoutSidebarLeftCollapse
+          v-if="isCollapsed"
+          v-motion
+          :initial="{
+            opacity: 0,
+            transform: 'rotate(0)'
+          }"
+          :enter="{
+            opacity: 1,
+            transform: 'rotate(180deg)'
+          }"
+          :leave="{
+            transform: 'rotate(180deg)',
+            opacity: 0
+          }"
+        />
+        <IconLayoutSidebarLeftExpand
+          v-else
+          v-motion
+          :initial="{
+            opacity: 0,
+            transform: 'rotate(0)'
+          }"
+          :enter="{
+            opacity: 1,
+            transform: 'rotate(180deg)'
+          }"
+          :leave="{
+            transform: 'rotate(180deg)',
+            opacity: 0
+          }"
+        />
+      </button>
 
-    <Breadcrumb />
+      <Breadcrumb />
+      <!------------------------------------------------- || Breadcrumb group || ------------------------------------------------->
+    </div>
 
-    <div class="dropdown dropdown-bottom dropdown-end">
+    <!-- <div class="dropdown dropdown-bottom dropdown-end">
       <div tabindex="0" role="button" class="btn m-1">
         <IconColorSwatch :size="20" />
       </div>
@@ -28,20 +65,29 @@
           </div>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
+import { inject, ref } from 'vue'
+
 import Breadcrumb from './breadcrumb/index.vue'
-import { useTheme, themeDefs } from '@/hooks'
-import type { ThemeDef } from '@/hooks'
+// import { useTheme, themeDefs } from '@/hooks'
+// import type { ThemeDef } from '@/hooks'
 
-import { IconColorSwatch } from '@tabler/icons-vue'
+import IconLayoutSidebarLeftCollapse from '@/assets/icons/layout-sidebar-left-collapse.svg'
+import IconLayoutSidebarLeftExpand from '@/assets/icons/layout-sidebar-left-expand.svg'
+// import IconColorSwatch from '@/assets/icons/color-swatch.svg'
 
-const { setTheme } = useTheme()
+const toggleSidebar = inject<() => void>('toggleSidebar')
+const isCollapsed = inject<boolean>('isCollapsed')
 
-const handleOnChangeTheme = (theme: ThemeDef) => {
-  setTheme(theme.name)
-}
+// const { setTheme } = useTheme()
+
+// const handleOnChangeTheme = (theme: ThemeDef) => {
+//   setTheme(theme.name)
+// }
 </script>
+
+<style scoped></style>
