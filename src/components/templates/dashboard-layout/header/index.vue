@@ -2,42 +2,12 @@
   <div class="navbar flex justify-between border-b-1 border border-black-10 p-0">
     <!------------------------------------------------- || Breadcrumb group || ------------------------------------------------->
     <div class="flex gap-8">
-      <button class="btn border-0 bg-transparent shadow-transparent" @click="toggleSidebar">
-        <IconLayoutSidebarLeftCollapse
-          v-if="isCollapsed"
-          v-motion
-          :initial="{
-            opacity: 0,
-            transform: 'rotate(0)'
-          }"
-          :enter="{
-            opacity: 1,
-            transform: 'rotate(180deg)'
-          }"
-          :leave="{
-            transform: 'rotate(180deg)',
-            opacity: 0
-          }"
-        />
-        <IconLayoutSidebarLeftExpand
-          v-else
-          v-motion
-          :initial="{
-            opacity: 0,
-            transform: 'rotate(0)'
-          }"
-          :enter="{
-            opacity: 1,
-            transform: 'rotate(180deg)'
-          }"
-          :leave="{
-            transform: 'rotate(180deg)',
-            opacity: 0
-          }"
-        />
+      <button class="btn border-0 bg-transparent shadow-transparent" @click="handleOnToggleSidebar">
+        <IconLayoutSidebarLeftCollapse v-motion ref="target" />
       </button>
 
       <Breadcrumb />
+
       <!------------------------------------------------- || Breadcrumb group || ------------------------------------------------->
     </div>
 
@@ -77,11 +47,40 @@ import Breadcrumb from './breadcrumb/index.vue'
 // import type { ThemeDef } from '@/hooks'
 
 import IconLayoutSidebarLeftCollapse from '@/assets/icons/layout-sidebar-left-collapse.svg'
-import IconLayoutSidebarLeftExpand from '@/assets/icons/layout-sidebar-left-expand.svg'
 // import IconColorSwatch from '@/assets/icons/color-swatch.svg'
 
 const toggleSidebar = inject<() => void>('toggleSidebar')
 const isCollapsed = inject<boolean>('isCollapsed')
+
+import { useMotion } from '@vueuse/motion'
+
+const target = ref<HTMLElement>()
+
+const motionInstance = useMotion(target, {
+  'rotate-180': {
+    transform: 'rotate(180deg)'
+  },
+  'rotate-0': {
+    transform: 'rotate(0deg)'
+  },
+  initial: {
+    transform: 'rotate(0)'
+  }
+})
+
+const handleOnToggleSidebar = async () => {
+  if (toggleSidebar) {
+    toggleSidebar()
+  }
+
+  if (isCollapsed!.value) {
+    await motionInstance.apply('rotate-180')
+    motionInstance.variant.value = 'rotate-180'
+  } else {
+    await motionInstance.apply('rotate-0')
+    motionInstance.variant.value = 'rotate-0'
+  }
+}
 
 // const { setTheme } = useTheme()
 
