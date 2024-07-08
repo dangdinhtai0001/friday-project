@@ -1,22 +1,23 @@
 <template>
   <div
-    class="flex flex-col gap-8 justify-between border-r border-black-10 px-16 py-28"
+    class="flex flex-col justify-between border-r border-black-10 px-16 py-20 gap-16 bg-red-400"
     v-motion
     ref="sidebarContainerTarget"
   >
     <!-- ----------------------------------------- || Sidebar items || ----------------------------------------- -->
-    <div>sidebar</div>
+    <NameBadge />
     <!-- ----------------------------------------- || Sidebar items  || ----------------------------------------- -->
-    <!-- ----------------------------------------- || Name badge || ----------------------------------------- -->
-    <div><SidebarItem :is-collapsed="isCollapsed" /></div>
-    <!-- ----------------------------------------- || Name badge || ----------------------------------------- -->
+    <!-- ----------------------------------------- || Logo || ----------------------------------------- -->
+    <SidebarLogo />
+    <!-- ----------------------------------------- || Logo || ----------------------------------------- -->
   </div>
 </template>
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { useMotion } from '@vueuse/motion'
 
-import SidebarItem from './sidebar-item.vue'
+import SidebarLogo from './logo.vue'
+import NameBadge from './name-badge.vue'
 
 const isCollapsed = inject<boolean>('isCollapsed')
 
