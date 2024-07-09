@@ -1,11 +1,14 @@
 <template>
   <div
-    class="flex flex-col justify-between border-r border-black-10 px-16 py-20 gap-16 bg-red-400"
+    class="flex flex-col justify-between border-r border-black-10 px-16 py-20 gap-16"
     v-motion
     ref="sidebarContainerTarget"
   >
     <!-- ----------------------------------------- || Sidebar items || ----------------------------------------- -->
     <NameBadge />
+    <div class="h-full">
+      <FloatMenu />
+    </div>
     <!-- ----------------------------------------- || Sidebar items  || ----------------------------------------- -->
     <!-- ----------------------------------------- || Logo || ----------------------------------------- -->
     <SidebarLogo />
@@ -18,6 +21,7 @@ import { useMotion } from '@vueuse/motion'
 
 import SidebarLogo from './logo.vue'
 import NameBadge from './name-badge.vue'
+import FloatMenu from '@/components/atoms/menu/index.vue'
 
 const isCollapsed = inject<boolean>('isCollapsed')
 
