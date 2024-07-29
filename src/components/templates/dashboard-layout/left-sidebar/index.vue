@@ -6,7 +6,7 @@
   >
     <!-- ----------------------------------------- || Sidebar items || ----------------------------------------- -->
     <NameBadge />
-    <div class="h-full" />
+    <div class="h-full"><Menu /></div>
     <!-- ----------------------------------------- || Sidebar items  || ----------------------------------------- -->
     <!-- ----------------------------------------- || Logo || ----------------------------------------- -->
     <SidebarLogo />
@@ -19,6 +19,7 @@ import { useMotion } from '@vueuse/motion'
 
 import SidebarLogo from './logo.vue'
 import NameBadge from './name-badge.vue'
+import Menu from './menu/index.vue'
 
 const isCollapsed = inject<boolean>('isCollapsed')
 
