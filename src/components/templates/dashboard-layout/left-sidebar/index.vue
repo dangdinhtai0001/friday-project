@@ -7,7 +7,7 @@
     <!-- ----------------------------------------- || Sidebar items || ----------------------------------------- -->
     <NameBadge />
     <div class="h-full">
-      <FloatMenu />
+      <FloatMenu :menus="sidebarMenuConfig" />
     </div>
     <!-- ----------------------------------------- || Sidebar items  || ----------------------------------------- -->
     <!-- ----------------------------------------- || Logo || ----------------------------------------- -->
@@ -22,6 +22,7 @@ import { useMotion } from '@vueuse/motion'
 import SidebarLogo from './logo.vue'
 import NameBadge from './name-badge.vue'
 import FloatMenu from '@/components/atoms/menu/index.vue'
+import sidebarMenuConfig from '@/configs/sidebar-menu-config.json'
 
 const isCollapsed = inject<boolean>('isCollapsed')
 
