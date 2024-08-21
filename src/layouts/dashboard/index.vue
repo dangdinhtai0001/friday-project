@@ -1,38 +1,60 @@
 <template>
   <div class="bg-primary-background h-screen">
     <div class="flex w-full h-full">
-      <LeftSideBar class="fixed top-0 left-0 h-full" />
-      <div class="w-full">
-        <Header />
-        <section class="app-main h-full">
-          <div class="app-scrollbar">
-            <!-- Using route.path and route.fullPath as keys has different effects, most of the time path is more common -->
-            <router-view v-slot="{ Component, route }">
-              <!-- <transition name="el-fade-in" mode="out-in"> -->
-              <!-- <keep-alive :include="tagsViewStore.cachedViews"> -->
-              <component :is="Component" :key="route.path" />
-              <!-- </keep-alive> -->
-              <!-- </transition> -->
-            </router-view>
-          </div>
-        </section>
-      </div>
+      <LeftSideBar
+        class="fixed top-0 left-0 h-full"
+        :expanded-width="expandedWidth"
+        :collapsed-width="collapsedWidth"
+      />
+      <Header ref="headerRef" :style="headerStyle" class="fixed" />
+      <section class="app-main h-full">
+        <div class="app-scrollbar" :style="mainContentStyle">
+          <router-view v-slot="{ Component, route }">
+            <component :is="Component" :key="route.path" />
+          </router-view>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, provide } from 'vue'
+import { ref, provide, computed } from 'vue'
+import { useElementSize } from '@vueuse/core'
 import LeftSideBar from './left-sidebar/index.vue'
 import Header from './header/index.vue'
+import { IS_COLLAPSED_KEY, TOGGLE_SIDEBAR_KEY } from './constant'
 
 const isCollapsed = ref(false)
+const headerRef = ref<HTMLElement | null>(null)
+const headerSize = useElementSize(headerRef)
 
 const toggleSidebar = () => {
-  console.log('Toggle sidebar')
   isCollapsed.value = !isCollapsed.value
 }
 
-provide('isCollapsed', isCollapsed)
-provide('toggleSidebar', toggleSidebar)
+provide(IS_COLLAPSED_KEY, isCollapsed)
+provide(TOGGLE_SIDEBAR_KEY, toggleSidebar)
+
+const expandedWidth = '212px'
+const collapsedWidth = '80px'
+
+const layoutStyles = computed(() => {
+  const width = isCollapsed.value ? collapsedWidth : expandedWidth
+  return {
+    marginLeft: width,
+    width: `calc(100% - ${width})`,
+    marginTop: `${headerSize.height.value}px`
+  }
+})
+
+const mainContentStyle = computed(() => ({
+  marginLeft: layoutStyles.value.marginLeft,
+  marginTop: layoutStyles.value.marginTop
+}))
+
+const headerStyle = computed(() => ({
+  marginLeft: layoutStyles.value.marginLeft,
+  width: layoutStyles.value.width
+}))
 </script>

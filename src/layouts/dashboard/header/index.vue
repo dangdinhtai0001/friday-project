@@ -1,5 +1,7 @@
 <template>
-  <div class="navbar flex justify-between border-b-1 border border-black-10 p-0">
+  <div
+    class="navbar flex justify-between border-b-1 border border-black-10 p-0 bg-primary-background"
+  >
     <!------------------------------------------------- || Breadcrumb group || ------------------------------------------------->
     <div class="flex gap-8">
       <button class="btn border-0 bg-transparent shadow-transparent" @click="handleOnToggleSidebar">

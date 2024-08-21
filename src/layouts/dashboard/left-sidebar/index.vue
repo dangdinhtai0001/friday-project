@@ -23,14 +23,25 @@ import SidebarLogo from './logo.vue'
 import NameBadge from './name-badge.vue'
 import Menu from './menu.vue'
 
-const isCollapsed = inject<boolean>('isCollapsed')
+import { IS_COLLAPSED_KEY } from '../constant'
+
+// Define props for expanded and collapsed widths
+const props = defineProps<{
+  expandedWidth: string
+  collapsedWidth: string
+}>()
+
+const isCollapsed = inject<boolean>(IS_COLLAPSED_KEY)
 
 const sidebarContainerTarget = ref<HTMLElement>()
 
 const motionInstance = useMotion(sidebarContainerTarget, {
-  initial: { width: '212px' },
-  collapsed: { width: '80px' },
-  expanded: { width: '212px' }
+  // initial: { width: '212px' },
+  // collapsed: { width: '80px' },
+  // expanded: { width: '212px' }
+  initial: { width: props.expandedWidth },
+  collapsed: { width: props.collapsedWidth },
+  expanded: { width: props.expandedWidth }
 })
 
 // @ts-ignore: Unreachable code error
