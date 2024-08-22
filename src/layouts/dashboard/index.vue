@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary-background h-screen">
+  <section class="app-main bg-primary-background h-screen">
     <div class="flex w-full h-full">
       <LeftSideBar
         class="fixed top-0 left-0 h-full"
@@ -7,15 +7,13 @@
         :collapsed-width="collapsedWidth"
       />
       <Header ref="headerRef" :style="headerStyle" class="fixed" />
-      <section class="app-main h-full">
-        <div class="app-scrollbar" :style="mainContentStyle">
-          <router-view v-slot="{ Component, route }">
-            <component :is="Component" :key="route.path" />
-          </router-view>
-        </div>
-      </section>
+      <div class="app-scrollbar overflow-auto" :style="mainContentStyle">
+        <router-view v-slot="{ Component, route }">
+          <component :is="Component" :key="route.path" />
+        </router-view>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

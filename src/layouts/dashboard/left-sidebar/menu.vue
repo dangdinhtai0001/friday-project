@@ -9,32 +9,14 @@
 <script lang="ts" setup>
 import { NavigationMenuRoot, NavigationMenuList } from 'radix-vue'
 import MenuItem from './menu-item.vue'
+import IconVectorTriangle from '@/assets/icons/vector-triangle.svg'
 
 // JSON cấu hình
 const menuItems = [
   {
-    label: 'Item 1',
-    content: 'Item 1 content'
-  },
-  {
-    label: 'Item 2',
-    content: 'Item 2 content'
-  },
-  {
-    label: 'Item 3',
-    children: [
-      {
-        label: 'Item 3.1',
-        content: 'Item 3.1 content'
-      },
-      {
-        label: 'Item 3.2',
-        content: 'Item 3.2 content'
-      }
-    ]
-  },
-  {
-    label: 'Design system',
+    label: 'Design',
+    icon: IconVectorTriangle,
+    iconClass: 'w-20',
     children: [
       {
         label: 'Variables',
