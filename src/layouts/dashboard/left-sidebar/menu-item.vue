@@ -10,12 +10,15 @@
         </div>
         <icon-chevron-right v-if="!isCollapsed" class="w-16" />
       </NavigationMenuTrigger>
-      <NavigationMenuContent
-        class="absolute left-full top-0 ml-2 w-[212px] gap-4 rounded-16 bg-primary-background"
-      >
+      <!-- <NavigationMenuContent class="absolute left-full top-0 ml-2 w-[212px] gap-4 rounded-16"> -->
+      <NavigationMenuContent>
         <NavigationMenuSub>
           <NavigationMenuList orientation="vertical" class="flex flex-col gap-4">
-            <MenuItem v-for="(child, index) in item.children" :key="index" :item="child" />
+            <MenuItem
+              v-for="(child, index) in item.children"
+              :key="index"
+              :item="{ ...child, order: index }"
+            />
           </NavigationMenuList>
         </NavigationMenuSub>
       </NavigationMenuContent>
@@ -23,12 +26,21 @@
     <template v-else>
       <NavigationMenuLink v-if="item.route" as-child>
         <router-link :to="item.route">
-          <div :class="itemLabelClasses">
+          <div
+            :class="itemLabelClasses"
+            v-motion-slide-visible-left
+            :delay="(item.order || 0) * 0.05 * 1000"
+          >
             {{ item.label }}
           </div>
         </router-link>
       </NavigationMenuLink>
-      <div v-else :class="itemLabelClasses">
+      <div
+        v-else
+        :class="itemLabelClasses"
+        v-motion-slide-visible-left
+        :delay="(item.order || 0) * 0.1 * 1000"
+      >
         {{ item.label }}
       </div>
     </template>
@@ -54,12 +66,15 @@ interface MenuItem {
   iconClass?: string
   route?: string
   children?: MenuItem[]
+  order?: number
 }
 
 const { item } = defineProps<{ item: MenuItem }>()
 
 const itemLabelClasses =
-  'flex p-8 gap-4 rounded-12 bg-primary-background f-text-regular-12 hover:bg-black-5'
+  'flex p-8 gap-4 rounded-12 bg-primary-background f-text-regular-12  hover:bg-black-5'
 
 const isCollapsed = inject<boolean>(IS_COLLAPSED_KEY)
 </script>
+
+<style scoped></style>

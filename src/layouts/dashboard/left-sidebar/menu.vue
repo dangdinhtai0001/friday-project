@@ -1,13 +1,15 @@
 <template>
-  <NavigationMenuRoot orientation="vertical">
+  <NavigationMenuRoot orientation="vertical" class="relative">
     <NavigationMenuList class="flex flex-col gap-4">
-      <MenuItem v-for="(item, index) in menuItems" :key="index" :item="item" />
+      <MenuItem v-for="(item, index) in menuItems" :key="index" :item="{ ...item, order: index }" />
     </NavigationMenuList>
+
+    <NavigationMenuViewport class="absolute left-full top-0 ml-4 w-full gap-4 rounded-16" />
   </NavigationMenuRoot>
 </template>
 
 <script lang="ts" setup>
-import { NavigationMenuRoot, NavigationMenuList } from 'radix-vue'
+import { NavigationMenuRoot, NavigationMenuList, NavigationMenuViewport } from 'radix-vue'
 import MenuItem from './menu-item.vue'
 import IconVectorTriangle from '@/assets/icons/vector-triangle.svg'
 
