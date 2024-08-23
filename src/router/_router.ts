@@ -5,6 +5,7 @@ import Layouts from '@/layouts/index.vue'
 
 import { designSystemRoute } from './design-system'
 import { homeRoute } from './home'
+import { componentRoute } from './components'
 
 export const constantRoutes: RouteRecordRaw[] = [
   {
@@ -37,7 +38,8 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   //   ----------------------------------------------------------------
   designSystemRoute,
-  homeRoute
+  homeRoute,
+  componentRoute
 ]
 
 export const dynamicRoutes: RouteRecordRaw[] = []

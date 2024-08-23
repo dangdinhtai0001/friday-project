@@ -14,6 +14,17 @@ import IconVectorTriangle from '@/assets/icons/vector-triangle.svg'
 // JSON cấu hình
 const menuItems = [
   {
+    label: 'Components',
+    icon: IconVectorTriangle,
+    iconClass: 'w-20',
+    children: [
+      {
+        label: 'Tables',
+        route: '/components/table'
+      }
+    ]
+  },
+  {
     label: 'Design',
     icon: IconVectorTriangle,
     iconClass: 'w-20',
