@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from 'daisyui'
+import animate from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
 import { textStylesComponents } from './config/tailwind/custom-components.ts'
 import { pastelLight, pastelDark } from './config/tailwind/daisy-plugins.ts'
@@ -76,6 +77,7 @@ export default {
     }
   },
   plugins: [
+    animate,
     daisyui,
     plugin(function ({ addComponents }) {
       addComponents({ ...textStylesComponents })
