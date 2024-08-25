@@ -1,15 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/home/index.vue'
+import { createRouter, type RouteRecordRaw } from 'vue-router'
+import { history, flatMultiLevelRoutes } from './helper'
+import routeSettings from './config'
+
+import { routes as defaultRoutes } from './default-routes'
+import { routes as overviewRoutes } from './modules/overview'
+import { routes as usersRoutes } from './modules/identity-access'
+
+export const constantRoutes: RouteRecordRaw[] = [
+  ...defaultRoutes,
+  ...overviewRoutes,
+  ...usersRoutes
+]
+
+export const dynamicRoutes: RouteRecordRaw[] = []
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    }
-  ]
+  history,
+  routes: routeSettings.thirdLevelRouteCache ? flatMultiLevelRoutes(constantRoutes) : constantRoutes
 })
 
 export default router
