@@ -1,10 +1,10 @@
 <template>
   <div class="app-main h-screen w-screen flex f-text-regular-14">
-    <div class="left-sidebar w-[212px] h-full border">left sidebar</div>
-
+    <left-sidebar />
     <div class="border flex flex-col w-full h-full">
-      <div class="app-header border-b px-28 py-20">header</div>
+      <Header />
       <div class="app-content overflow-auto">
+        {{ isCollapsed }}
         <router-view v-slot="{ Component, route }">
           <div v-motion ref="target">
             <component :is="Component" :key="route.path" />
@@ -16,12 +16,17 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue'
+import { watch, ref, provide } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMotion } from '@vueuse/motion'
 import type { MotionVariants } from '@vueuse/motion'
 
+import Header from './header/index.vue'
+import LeftSidebar from './left-sidebar/index.vue'
+import { SIDEBAR_STATE_COLLAPSED } from './config'
+
 const target = ref<HTMLElement>()
+const isCollapsed = ref<boolean>(false)
 
 const variants: MotionVariants<string> = {
   initial: {
@@ -33,7 +38,6 @@ const variants: MotionVariants<string> = {
     opacity: 1
   }
 }
-// Get the variant from target motion instance.
 const { apply } = useMotion(target, variants)
 
 const route = useRoute()
@@ -42,4 +46,6 @@ watch(route, async (_) => {
   await apply('initial')
   await apply('enter')
 })
+
+provide(SIDEBAR_STATE_COLLAPSED, isCollapsed)
 </script>

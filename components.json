@@ -12,6 +12,6 @@
   "framework": "vite",
   "aliases": {
     "components": "@/components/atoms",
-    "utils": "@/utils"
+    "utils": "@/composables/utils"
   }
 }
