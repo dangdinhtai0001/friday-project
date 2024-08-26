@@ -1,5 +1,5 @@
 <template>
-  <div class="app-main h-screen w-screen flex f-text-regular-14">
+  <div class="app-main h-screen w-screen flex">
     <left-sidebar />
     <div class="border flex flex-col w-full h-full">
       <Header />
