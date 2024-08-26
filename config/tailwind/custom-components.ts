@@ -30,10 +30,10 @@ const textStylesComponents = {
     '@apply font-inter text-18 font-regular': {}
   },
   '.f-text-regular-14': {
-    '@apply font-inter text-18 font-regular': {}
+    '@apply font-inter text-14 font-regular': {}
   },
   '.f-text-regular-12': {
-    '@apply font-inter text-18 font-regular': {}
+    '@apply font-inter text-12 font-regular': {}
   }
 }
 
