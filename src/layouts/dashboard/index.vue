@@ -23,7 +23,7 @@ import type { MotionVariants } from '@vueuse/motion'
 
 import Header from './header/index.vue'
 import LeftSidebar from './left-sidebar/index.vue'
-import { SIDEBAR_STATE_COLLAPSED } from './config'
+import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from './config'
 
 const target = ref<HTMLElement>()
 const isCollapsed = ref<boolean>(false)
@@ -47,5 +47,5 @@ watch(route, async (_) => {
   await apply('enter')
 })
 
-provide(SIDEBAR_STATE_COLLAPSED, isCollapsed)
+provide(LEFT_SIDEBAR_COLLAPSED_STATE_KEY, isCollapsed)
 </script>

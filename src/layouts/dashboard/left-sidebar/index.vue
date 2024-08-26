@@ -4,16 +4,17 @@
 
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
-import { SIDEBAR_STATE_COLLAPSED } from '../config'
+import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
 import { useMotion, type MotionVariants } from '@vueuse/motion'
 
-const isCollapsed = inject(SIDEBAR_STATE_COLLAPSED)
+const isCollapsed = inject<boolean>(LEFT_SIDEBAR_COLLAPSED_STATE_KEY)
+const collapseState = ref(isCollapsed)
 
 const containerRef = ref<HTMLElement>()
 
 const variants: MotionVariants<string> = {
   initial: {
-    width: '80px'
+    width: '212px'
   },
   collapsed: {
     width: '212px'
@@ -24,11 +25,11 @@ const variants: MotionVariants<string> = {
 }
 const { apply } = useMotion(containerRef, variants)
 
-watch(isCollapsed, async (newVal) => {
+watch(collapseState, async (newVal) => {
   if (newVal) {
-    await apply('collapsed')
-  } else {
     await apply('expanded')
+  } else {
+    await apply('collapsed')
   }
 })
 </script>

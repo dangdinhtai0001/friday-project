@@ -15,7 +15,8 @@ import { inject, ref } from 'vue'
 import { useMotion, type MotionVariants } from '@vueuse/motion'
 import { Button } from '@/components/atoms/ui/button'
 import IconLayoutSidebarRightCollapse from '@/assets/icons/IconLayoutSidebarRightCollapse.svg'
-import { SIDEBAR_STATE_COLLAPSED } from '../config'
+import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
+
 const menuButtonRef = ref<HTMLElement>()
 
 const variants: MotionVariants<string> = {
@@ -33,7 +34,7 @@ const variants: MotionVariants<string> = {
 // Get the variant from target motion instance.
 const { apply } = useMotion(menuButtonRef, variants)
 
-const isCollapsed = inject(SIDEBAR_STATE_COLLAPSED)
+const isCollapsed = inject(LEFT_SIDEBAR_COLLAPSED_STATE_KEY)
 const collapseState = ref(isCollapsed)
 
 const handleOnClickMenuButton = async () => {
