@@ -49,13 +49,37 @@
     <!-- #endregion: frame 0  -->
     <!-- #region: frame 1 -->
     <div class="frame-1 flex pb-12 gap-4">
-      <TreeRoot>
-        <TreeItem />
-
-        <!-- or with virtual -->
-        <TreeVirtualizer>
-          <TreeItem />
-        </TreeVirtualizer>
+      <TreeRoot
+        v-slot="{ flattenItems }"
+        :items="items"
+        :get-key="(item) => item.id"
+        class="list-none select-none w-full"
+      >
+        <!-- :default-expanded="['components']" -->
+        <TreeItem
+          v-for="item in flattenItems"
+          v-slot="{ isExpanded }"
+          :key="item._id"
+          :style="{ 'padding-left': !isCollapsed ? `${(item.level - 1) * 20}px` : '' }"
+          v-bind="item.bind"
+          class="flex rounded-12 py-8 gap-4 items-center justify-center focus:ring-black-10 focus:ring-2 data-[selected]:bg-black-10"
+        >
+          <template v-if="item.hasChildren">
+            <div class="rounded-8 text-black-20">
+              <icon-chevron-right v-if="!isExpanded" class="w-16" />
+              <icon-chevron-down v-else class="w-16" />
+            </div>
+          </template>
+          <div class="flex gap-8 rounded-8 w-full">
+            <component :is="item.value.icon" class="w-16" />
+            <div
+              v-if="!isCollapsed"
+              class="flex-1 min-w-0 text-ellipsis overflow-hidden whitespace-nowrap"
+            >
+              {{ item.value.title }}
+            </div>
+          </div>
+        </TreeItem>
       </TreeRoot>
     </div>
     <!-- #endregion: frame 1  -->
@@ -66,10 +90,46 @@
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { useMotion, type MotionVariants } from '@vueuse/motion'
-import { TreeItem, TreeRoot, TreeVirtualizer } from 'radix-vue'
+import { TreeRoot, TreeItem } from 'radix-vue'
+import IconChevronDown from '@/assets/icons/IconChevronDown.svg'
+import IconChevronRight from '@/assets/icons/IconChevronRight.svg'
+import IconPizza from '@/assets/icons/IconPizza.svg'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/ui/avatar'
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/components/atoms/tabs'
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
+
+const items = [
+  {
+    id: '1',
+    title: 'User Profile',
+    icon: IconPizza,
+    children: [
+      { id: '1.1', title: 'Overview', icon: IconPizza },
+      { id: '1.2', title: 'Project', icon: IconPizza },
+      { id: '1.3', title: 'Campaigns', icon: IconPizza },
+      { id: '1.4', title: 'Documents', icon: IconPizza },
+      { id: '1.5', title: 'Followers', icon: IconPizza },
+      {
+        id: '1.6',
+        title: 'composables',
+        icon: IconPizza,
+        children: [
+          { id: '1.6.1', title: 'useAuth.ts', icon: IconPizza },
+          { id: '1.6.2', title: 'useUser.ts', icon: IconPizza },
+          {
+            id: '1.6.3',
+            title: 'composables',
+            icon: IconPizza,
+            children: [
+              { id: '1.6.3.1', title: 'useAuth.ts', icon: IconPizza },
+              { id: '1.6.3.2', title: 'useUser.ts', icon: IconPizza }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 
 const favoriteAndRecentTabs = [
   { value: 'favorites', label: 'Favorites' },
