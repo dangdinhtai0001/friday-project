@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/utils'
+import { cn } from '@/composables/utils'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -8,9 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li
-    :class="cn('inline-flex items-center gap-1.5', props.class)"
-  >
+  <li :class="cn('inline-flex items-center gap-1.5', props.class)">
     <slot />
   </li>
 </template>
