@@ -7,13 +7,9 @@ declare module 'vue-router' {
      */
     title?: string
     /**
-     * Sets the icon for this route. Remember to import the svg into @/icons/svg
+     * Sets the icon for this route. Remember to import the svg into @/assets/icons
      */
     svgIcon?: string
-    /**
-     * Sets the icon for this route directly using Element Plus Icon (When both svgIcon and elIcon are set, svgIcon will take priority)
-     */
-    elIcon?: string
     /**
      * Defaults to false. When set to true, this route will not appear in the sidebar
      */

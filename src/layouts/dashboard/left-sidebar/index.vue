@@ -67,11 +67,11 @@
           <template v-if="item.hasChildren">
             <div class="rounded-8 text-black-20">
               <icon-chevron-right v-if="!isExpanded" class="w-16" />
-              <icon-chevron-down v-else class="w-16" />
+              <icon-chevron-down v-else class="w-16 h-16" />
             </div>
           </template>
           <div class="flex gap-8 rounded-8 w-full">
-            <component :is="item.value.icon" class="w-16" />
+            <SvgIcon :name="item.value.icon" class="w-12" />
             <div
               v-if="!isCollapsed"
               class="flex-1 min-w-0 text-ellipsis overflow-hidden whitespace-nowrap"
@@ -84,6 +84,7 @@
     </div>
     <!-- #endregion: frame 1  -->
     left sidebar
+    <SvgIcon name="IconAccessible.svg" />
   </div>
 </template>
 
@@ -93,43 +94,68 @@ import { useMotion, type MotionVariants } from '@vueuse/motion'
 import { TreeRoot, TreeItem } from 'radix-vue'
 import IconChevronDown from '@/assets/icons/IconChevronDown.svg'
 import IconChevronRight from '@/assets/icons/IconChevronRight.svg'
-import IconPizza from '@/assets/icons/IconPizza.svg'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/ui/avatar'
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/components/atoms/tabs'
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
+import { useRouter } from 'vue-router'
+import SvgIcon from '@/components/atoms/icon/SvgIcon.vue'
 
-const items = [
-  {
-    id: '1',
-    title: 'User Profile',
-    icon: IconPizza,
-    children: [
-      { id: '1.1', title: 'Overview', icon: IconPizza },
-      { id: '1.2', title: 'Project', icon: IconPizza },
-      { id: '1.3', title: 'Campaigns', icon: IconPizza },
-      { id: '1.4', title: 'Documents', icon: IconPizza },
-      { id: '1.5', title: 'Followers', icon: IconPizza },
-      {
-        id: '1.6',
-        title: 'composables',
-        icon: IconPizza,
-        children: [
-          { id: '1.6.1', title: 'useAuth.ts', icon: IconPizza },
-          { id: '1.6.2', title: 'useUser.ts', icon: IconPizza },
-          {
-            id: '1.6.3',
-            title: 'composables',
-            icon: IconPizza,
-            children: [
-              { id: '1.6.3.1', title: 'useAuth.ts', icon: IconPizza },
-              { id: '1.6.3.2', title: 'useUser.ts', icon: IconPizza }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+const router = useRouter()
+
+const routes = router.getRoutes().filter((val) => !val.meta.hidden)
+
+console.log(routes)
+
+const mapRoutes = (routes: any[], idPrefix: string): any[] => {
+  return routes.map((route, index) => {
+    const mappedChildren =
+      route.children && route.children.length > 0 ? mapRoutes(route.children, route.id) : undefined
+
+    return {
+      id: `${idPrefix}.${index}`,
+      title: route.name,
+      icon: route.meta.svgIcon,
+      ...(mappedChildren && { children: mappedChildren })
+    }
+  })
+}
+
+const items = mapRoutes(routes, '')
+
+console.log(items)
+
+// const items = [
+//   {
+//     id: '1',
+//     title: 'User Profile',
+//     icon: IconPizza,
+//     children: [
+//       { id: '1.1', title: 'Overview', icon: IconPizza },
+//       { id: '1.2', title: 'Project', icon: IconPizza },
+//       { id: '1.3', title: 'Campaigns', icon: IconPizza },
+//       { id: '1.4', title: 'Documents', icon: IconPizza },
+//       { id: '1.5', title: 'Followers', icon: IconPizza },
+//       {
+//         id: '1.6',
+//         title: 'composables',
+//         icon: IconPizza,
+//         children: [
+//           { id: '1.6.1', title: 'useAuth.ts', icon: IconPizza },
+//           { id: '1.6.2', title: 'useUser.ts', icon: IconPizza },
+//           {
+//             id: '1.6.3',
+//             title: 'composables',
+//             icon: IconPizza,
+//             children: [
+//               { id: '1.6.3.1', title: 'useAuth.ts', icon: IconPizza },
+//               { id: '1.6.3.2', title: 'useUser.ts', icon: IconPizza }
+//             ]
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]
 
 const favoriteAndRecentTabs = [
   { value: 'favorites', label: 'Favorites' },

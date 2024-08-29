@@ -7,13 +7,15 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     component: DashboardLayout,
     redirect: '/overview',
+    name: 'Overview',
     children: [
       {
         path: 'overview',
         component: () => import('@/views/overview/index.vue'),
         name: 'Overview',
         meta: {
-          title: 'Overview'
+          title: 'Overview',
+          svgIcon: '@/assets/icons/IconAccessible.svg'
         }
       }
     ]

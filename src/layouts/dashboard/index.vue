@@ -4,7 +4,6 @@
     <div class="border flex flex-col w-full h-full">
       <Header />
       <div class="app-content overflow-auto">
-        {{ isCollapsed }}
         <router-view v-slot="{ Component, route }">
           <div v-motion ref="target">
             <component :is="Component" :key="route.path" />

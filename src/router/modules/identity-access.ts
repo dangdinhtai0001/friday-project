@@ -6,17 +6,20 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/identity-access',
     redirect: 'identity-access/home',
+    name: 'Identity Access',
     component: DashboardLayout,
     meta: {
-      title: 'Home'
+      title: 'Identity Access',
+      svgIcon: '@/assets/icons/IconAccessible.svg'
     },
     children: [
       {
         path: 'home',
         component: () => import('@/views/identity-access/home/index.vue'),
-        name: 'Identity Access',
+        name: 'Home',
         meta: {
-          title: 'Identity Access'
+          title: 'Home',
+          svgIcon: '@/assets/icons/IconAccessible.svg'
         }
       },
       {
@@ -24,7 +27,8 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/identity-access/users/index.vue'),
         name: 'Users',
         meta: {
-          title: 'Users'
+          title: 'Users',
+          svgIcon: '@/assets/icons/IconAccessible.svg'
         }
       }
     ]
