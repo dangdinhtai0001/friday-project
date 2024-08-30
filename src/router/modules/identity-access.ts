@@ -10,7 +10,7 @@ export const routes: RouteRecordRaw[] = [
     component: DashboardLayout,
     meta: {
       title: 'Identity Access',
-      svgIcon: '@/assets/icons/IconAccessible.svg'
+      svgIcon: 'IconLockAccess'
     },
     children: [
       {
@@ -19,7 +19,7 @@ export const routes: RouteRecordRaw[] = [
         name: 'Home',
         meta: {
           title: 'Home',
-          svgIcon: '@/assets/icons/IconAccessible.svg'
+          svgIcon: 'IconAccessible'
         }
       },
       {
@@ -28,7 +28,7 @@ export const routes: RouteRecordRaw[] = [
         name: 'Users',
         meta: {
           title: 'Users',
-          svgIcon: '@/assets/icons/IconAccessible.svg'
+          svgIcon: 'IconUser'
         }
       }
     ]

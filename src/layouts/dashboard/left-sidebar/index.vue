@@ -60,7 +60,7 @@
           v-for="item in flattenItems"
           v-slot="{ isExpanded }"
           :key="item._id"
-          :style="{ 'padding-left': !isCollapsed ? `${(item.level - 1) * 20}px` : '' }"
+          :style="{ 'padding-left': !isCollapsed ? `${(item.level - 1) * 30}px` : '' }"
           v-bind="item.bind"
           class="flex rounded-12 py-8 gap-4 items-center justify-center focus:ring-black-10 focus:ring-2 data-[selected]:bg-black-10"
         >
@@ -70,8 +70,8 @@
               <icon-chevron-down v-else class="w-16 h-16" />
             </div>
           </template>
-          <div class="flex gap-8 rounded-8 w-full">
-            <SvgIcon :name="item.value.icon" class="w-12" />
+          <div class="flex gap-8 items-center rounded-8 w-full">
+            <SvgIcon :name="item.value.icon" class="w-24 h-24" />
             <div
               v-if="!isCollapsed"
               class="flex-1 min-w-0 text-ellipsis overflow-hidden whitespace-nowrap"
@@ -98,7 +98,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/ui/avata
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/components/atoms/tabs'
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
 import { useRouter } from 'vue-router'
-import SvgIcon from '@/components/atoms/icon/SvgIcon.vue'
+import { SvgIcon } from '@/components/atoms/icons'
 
 const router = useRouter()
 
