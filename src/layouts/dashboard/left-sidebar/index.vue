@@ -48,114 +48,93 @@
     </div>
     <!-- #endregion: frame 0  -->
     <!-- #region: frame 1 -->
-    <div class="frame-1 flex pb-12 gap-4">
+    <div class="frame-1 flex pb-12">
       <TreeRoot
         v-slot="{ flattenItems }"
         :items="items"
         :get-key="(item) => item.id"
-        class="list-none select-none w-full"
+        class="flex flex-col gap-4 list-none select-none w-full"
       >
-        <!-- :default-expanded="['components']" -->
         <TreeItem
           v-for="item in flattenItems"
           v-slot="{ isExpanded }"
           :key="item._id"
-          :style="{ 'padding-left': !isCollapsed ? `${(item.level - 1) * 30}px` : '' }"
+          :style="{ 'padding-left': !isCollapsed ? `${(item.level - 1) * 20}px` : '' }"
           v-bind="item.bind"
-          class="flex rounded-12 py-8 gap-4 items-center justify-center focus:ring-black-10 focus:ring-2 data-[selected]:bg-black-10"
+          class="rounded-12 focus:ring-black-10 focus:ring-2 data-[selected]:bg-black-10 hover:bg-black-10"
         >
-          <template v-if="item.hasChildren">
-            <div class="rounded-8 text-black-20">
-              <icon-chevron-right v-if="!isExpanded" class="w-16" />
-              <icon-chevron-down v-else class="w-16 h-16" />
-            </div>
+          <template v-if="item.hasChildren && (item.value?.children?.length ?? 0) > 0">
+            <CommonItemContent
+              :item="item.value"
+              :isCollapsed="isCollapsed"
+              :is-expanded="isExpanded"
+            />
           </template>
-          <div class="flex gap-8 items-center rounded-8 w-full">
-            <SvgIcon :name="item.value.icon" class="w-24 h-24" />
-            <div
-              v-if="!isCollapsed"
-              class="flex-1 min-w-0 text-ellipsis overflow-hidden whitespace-nowrap"
-            >
-              {{ item.value.title }}
-            </div>
-          </div>
+          <template v-else>
+            <router-link :to="item.value.path">
+              <CommonItemContent
+                :item="item.value"
+                :isCollapsed="isCollapsed"
+                :is-expanded="isExpanded"
+              />
+            </router-link>
+          </template>
         </TreeItem>
       </TreeRoot>
     </div>
     <!-- #endregion: frame 1  -->
     left sidebar
-    <SvgIcon name="IconAccessible.svg" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { useMotion, type MotionVariants } from '@vueuse/motion'
+import { useRouter, type RouteRecordRaw } from 'vue-router'
 import { TreeRoot, TreeItem } from 'radix-vue'
-import IconChevronDown from '@/assets/icons/IconChevronDown.svg'
-import IconChevronRight from '@/assets/icons/IconChevronRight.svg'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/ui/avatar'
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/components/atoms/tabs'
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
-import { useRouter } from 'vue-router'
-import { SvgIcon } from '@/components/atoms/icons'
+import CommonItemContent from './CommonItemContent.vue'
+import { type NavigationItem } from './type'
 
 const router = useRouter()
-
 const routes = router.getRoutes().filter((val) => !val.meta.hidden)
 
-console.log(routes)
+function buildRouteTree(routes: RouteRecordRaw[]): NavigationItem[] {
+  // Filter out routes where meta.hidden === true
+  const filteredRoutes = routes.filter((route) => !route.meta?.hidden)
 
-const mapRoutes = (routes: any[], idPrefix: string): any[] => {
-  return routes.map((route, index) => {
-    const mappedChildren =
-      route.children && route.children.length > 0 ? mapRoutes(route.children, route.id) : undefined
+  // Map the routes to the Item interface
+  const routeMap: Record<string, NavigationItem> = {}
+  const itemList: NavigationItem[] = filteredRoutes.map((route) => {
+    const item: NavigationItem = {
+      id: route.name as string,
+      title: route.name as string,
+      path: route.path,
+      icon: route.meta?.svgIcon || '',
+      children: []
+    }
+    routeMap[route.path] = item
+    return item
+  })
 
-    return {
-      id: `${idPrefix}.${index}`,
-      title: route.name,
-      icon: route.meta.svgIcon,
-      ...(mappedChildren && { children: mappedChildren })
+  // Build the tree structure
+  const tree: NavigationItem[] = []
+
+  itemList.forEach((item) => {
+    const parentPath = item.path.split('/').slice(0, -1).join('/')
+    if (parentPath && routeMap[parentPath]) {
+      routeMap[parentPath].children!.push(item)
+    } else {
+      tree.push(item)
     }
   })
+
+  return tree
 }
 
-const items = mapRoutes(routes, '')
-
-console.log(items)
-
-// const items = [
-//   {
-//     id: '1',
-//     title: 'User Profile',
-//     icon: IconPizza,
-//     children: [
-//       { id: '1.1', title: 'Overview', icon: IconPizza },
-//       { id: '1.2', title: 'Project', icon: IconPizza },
-//       { id: '1.3', title: 'Campaigns', icon: IconPizza },
-//       { id: '1.4', title: 'Documents', icon: IconPizza },
-//       { id: '1.5', title: 'Followers', icon: IconPizza },
-//       {
-//         id: '1.6',
-//         title: 'composables',
-//         icon: IconPizza,
-//         children: [
-//           { id: '1.6.1', title: 'useAuth.ts', icon: IconPizza },
-//           { id: '1.6.2', title: 'useUser.ts', icon: IconPizza },
-//           {
-//             id: '1.6.3',
-//             title: 'composables',
-//             icon: IconPizza,
-//             children: [
-//               { id: '1.6.3.1', title: 'useAuth.ts', icon: IconPizza },
-//               { id: '1.6.3.2', title: 'useUser.ts', icon: IconPizza }
-//             ]
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// ]
+const items = buildRouteTree(routes)
 
 const favoriteAndRecentTabs = [
   { value: 'favorites', label: 'Favorites' },

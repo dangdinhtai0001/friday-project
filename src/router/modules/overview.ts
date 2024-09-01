@@ -15,7 +15,7 @@ export const routes: RouteRecordRaw[] = [
         name: 'Overview',
         meta: {
           title: 'Overview',
-          svgIcon: '@/assets/icons/IconAccessible.svg'
+          svgIcon: 'IconAperture'
         }
       }
     ]
