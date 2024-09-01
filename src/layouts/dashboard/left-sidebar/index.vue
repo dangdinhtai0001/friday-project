@@ -1,6 +1,6 @@
 <template>
   <div
-    class="left-sidebar flex flex-col p-16 gap-8 h-full border-r border-black-10"
+    class="left-sidebar flex flex-col p-16 gap-8 border-r border-black-10 h-full"
     ref="containerRef"
   >
     <!-- #region: frame 0 -->
@@ -83,7 +83,12 @@
       </TreeRoot>
     </div>
     <!-- #endregion: frame 1  -->
-    left sidebar
+    <!-- #region log -->
+    <div class="logo flex gap-4 items-center justify-center mt-auto">
+      <component :is="Logo" class="w-20" />
+      <div v-if="!isCollapsed">vue</div>
+    </div>
+    <!-- #endregion -->
   </div>
 </template>
 
@@ -97,6 +102,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/compo
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
 import CommonItemContent from './CommonItemContent.vue'
 import { type NavigationItem } from './type'
+import Logo from '@/assets/logos/logo.svg'
 
 const router = useRouter()
 const routes = router.getRoutes().filter((val) => !val.meta.hidden)
