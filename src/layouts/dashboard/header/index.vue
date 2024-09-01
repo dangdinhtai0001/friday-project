@@ -2,8 +2,8 @@
   <div class="app-header flex border-b px-28 py-20 justify-between items-center">
     <!-- #region: icon-breadcrumb -->
     <div class="icon-breadcrumb flex gap-8">
-      <!-- #region: icon-breadcrumb::button-group -->
-      <div class="button-group flex rounded-8 gap-8">
+      <!-- #region: icon-breadcrumb::action-group -->
+      <div class="action-group flex rounded-8 gap-8">
         <Button
           ref="menuButtonRef"
           class="flex rounded-8 w-28 h-28 p-4 gap-4"
@@ -11,9 +11,7 @@
         >
           <svg-icon name="IconLayoutSidebarRightCollapse" class="w-20 h-20 rounded-8" />
         </Button>
-        <Button
-          class="flex rounded-8 w-28 h-28 p-4 gap-4 transform ease-in-out transition-transform active:scale-75"
-        >
+        <Button class="flex rounded-8 w-28 h-28 p-4 gap-4">
           <!-- <svg-icon name="IconStar" class="w-20 h-20 rounded-8 fill-secondary-yellow" /> -->
           <svg-icon name="IconStarFilled" class="w-20 h-20 rounded-8 text-secondary-orange" />
         </Button>
@@ -37,8 +35,32 @@
     </div>
     <!-- #endregion -->
     <!-- #region: frame -->
-    <div class="frame">1</div>
-
+    <div class="frame flex items-center gap-20 h-[28px]">
+      <!-- #region: frame::search -->
+      <div class="frame::search relative w-full max-w-sm items-center">
+        <Input
+          id="search"
+          type="text"
+          placeholder="Search..."
+          class="pl-10 h-[28px] w-[160px]"
+          disabled
+        />
+        <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
+          <svg-icon name="IconSearch" class="w-16 h-16 text-black-20" />
+        </span>
+      </div>
+      <!-- #endregion -->
+      <!-- #region: frame::action-group -->
+      <div class="frame::action-group flex items-center rounded-8 gap-8 text-black-80">
+        <Button>
+          <svg-icon name="IconPalette" />
+        </Button>
+        <Button>
+          <svg-icon name="IconBell" />
+        </Button>
+      </div>
+      <!-- #endregion -->
+    </div>
     <!-- #endregion -->
   </div>
 </template>
@@ -57,6 +79,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/atoms/ui/breadcrumb'
+import { Input } from '@/components/atoms/ui/input'
 import { LEFT_SIDEBAR_COLLAPSED_STATE_KEY } from '../config'
 
 const menuButtonRef = ref<HTMLElement>()
