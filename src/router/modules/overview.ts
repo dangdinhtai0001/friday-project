@@ -7,6 +7,9 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     component: DashboardLayout,
     redirect: '/overview',
+    meta: {
+      breadcrumb: false
+    },
     name: 'Overview',
     children: [
       {
