@@ -1,0 +1,20 @@
+.ag-theme-friday {
+  /* customise with CSS variables */
+  --ag-background-color: theme(colors.primary-background);
+
+  --ag-header-height: 40px;
+
+  /* --ag-font-family: theme(fontFamily.inter);
+  --ag-font-size: theme(fontSize.12); */
+}
+
+.ag-theme-friday .ag-header {
+  /* @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4 flex; */
+  @apply border-red-300;
+}
+
+.ag-theme-friday .ag-header-cell {
+  /* @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4 flex; */
+
+  @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4;
+}

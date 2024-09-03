@@ -72,7 +72,13 @@ export default {
         'secondary-mint': 'var(--secondary-mint)',
         'secondary-yellow': 'var(--secondary-yellow)',
         'secondary-orange': 'var(--secondary-orange)',
-        'secondary-red': 'var(--secondary-red)'
+        'secondary-red': 'var(--secondary-red)',
+        //  background
+        'background-1': 'var(--background-1)',
+        'background-2': 'var(--background-2)',
+        'background-3': 'var(--background-3)',
+        'background-4': 'var(--background-4)',
+        'background-5': 'var(--background-5)'
       }
     }
   },

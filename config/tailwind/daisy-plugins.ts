@@ -30,7 +30,13 @@ const pastelLight = {
     '--secondary-mint': 'rgba(186, 237, 189, 1)',
     '--secondary-yellow': 'rgba(255, 233, 153, 1)',
     '--secondary-orange': 'rgba(255, 203, 131, 1)',
-    '--secondary-red': 'rgba(255, 71, 71, 1)'
+    '--secondary-red': 'rgba(255, 71, 71, 1)',
+    //  background
+    '--background-1': 'rgba(255, 255, 255, 1)',
+    '--background-2': 'rgba(247, 249, 251, 1)',
+    '--background-3': 'rgba(229, 236, 246, 1)',
+    '--background-4': 'rgba(227, 245, 255, 1)',
+    '--background-5': 'rgba(229, 236, 246, 0.5)'
   }
 }
 
@@ -66,7 +72,13 @@ const pastelDark = {
     '--secondary-mint': 'rgba(186, 237, 189, 1)',
     '--secondary-yellow': 'rgba(255, 233, 153, 1)',
     '--secondary-orange': 'rgba(255, 203, 131, 1)',
-    '--secondary-red': 'rgba(255, 71, 71, 1)'
+    '--secondary-red': 'rgba(255, 71, 71, 1)',
+    //  background
+    '--background-1': 'rgba(42, 42, 42, 1)',
+    '--background-2': 'rgba(255, 255, 255, 0.05)',
+    '--background-3': 'rgba(229, 236, 246, 1)',
+    '--background-4': 'rgba(227, 245, 255, 1)',
+    '--background-5': 'rgba(255, 255, 255, 0.05)'
   }
 }
 
