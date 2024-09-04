@@ -1,31 +1,65 @@
 .ag-theme-friday {
   /* customise with CSS variables */
-  --ag-background-color: theme(colors.primary-background);
 
+  /* #region customisation variables :: border */
+  --ag-border-color: theme(colors.transparent);
+  /* #endregion */
+
+  /* #region customisation variables :: header */
   --ag-header-height: 40px;
 
-  /* --ag-font-family: theme(fontFamily.inter);
-  --ag-font-size: theme(fontSize.12); */
+  --ag-header-column-separator-display: block;
+  --ag-header-column-separator-height: 30%;
+  --ag-header-column-separator-width: 1px;
+  --ag-header-column-separator-color: theme(colors.black-20);
+  /* #endregion */
+
+  /* #region customisation variables :: color */
+  --ag-background-color: theme(colors.primary-background);
+  --ag-selected-row-background-color: theme(colors.black-10);
+  --ag-row-hover-color: theme(colors.black-10);
+  /* #endregion  */
+
+  /* #region customisation icons */
+  /* hide all font icons */
+  --ag-icon-font-display: none;
+  --ag-icon-size: 16px;
+  /* provide a SVG icon */
+  /* https://www.ag-grid.com/vue-data-grid/custom-icons/#set-the-icons-through-gridoptions-javascript */
+  --ag-icon-image-checkbox-unchecked: url('@/assets/icons/IconSquare.svg');
+  --ag-icon-image-checkbox-checked: url('@/assets/icons/IconSquareCheckFilled.svg');
+  --ag-icon-image-checkbox-indeterminate: url('@/assets/icons/IconSquareMinusFilled.svg');
+  /* #endregion */
+}
+
+/* #region customisation header */
+.ag-theme-friday .ag-header-cell-label {
+  @apply hover:text-black-100;
 }
 
 .ag-theme-friday .ag-header {
-  @apply border-red-300;
+  @apply border-b-black-20;
 }
 
 .ag-theme-friday .ag-header-cell {
-  @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4;
+  @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4 hover:bg-red-300;
 }
+/* #endregion */
 
-.ag-theme-friday .ag-row {
-  @apply border-blue-300 h-40;
+/* #region cell */
+.ag-theme-friday .ag-cell-focus,
+.ag-cell-no-focus {
+  @apply border-transparent !important;
 }
+/* #endregion */
 
 /* #region Custom class */
 .ag-theme-friday .friday-default-cell {
-  @apply flex px-12 py-8 gap-8 f-text-regular-12;
+  /* @apply flex items-center px-12 f-text-regular-12 border-b-black-5; */
+  @apply flex items-center px-12 f-text-regular-12 border-b-black-5;
 }
 
 .ag-theme-friday .friday-default-row {
-  @apply h-40;
+  /* @apply; */
 }
 /* #endregion */
