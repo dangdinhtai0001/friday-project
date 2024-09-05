@@ -1,4 +1,6 @@
 <template>
+  <!--  -->
+
   <ag-grid-vue
     v-bind="forwarded"
     :style="{ height: gridHeight }"
@@ -7,6 +9,7 @@
     rowSelection="multiple"
     :rowClass="rowClass"
     :defaultColDef="defaultColDef"
+    :rowHeight="rowHeight"
   />
 </template>
 <script lang="ts" setup>
@@ -28,5 +31,6 @@ const defaultColDef = {
 }
 
 const props = defineProps<GridOptions>()
+
 const forwarded = useForwardProps<GridOptions>(props)
 </script>

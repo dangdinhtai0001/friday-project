@@ -1,1 +1,1 @@
-export { default as DataGrid } from './DataGrid.vue'
+export { default as DataGridContainer } from './DataGridContainer.vue'
