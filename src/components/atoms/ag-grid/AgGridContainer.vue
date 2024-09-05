@@ -1,6 +1,4 @@
 <template>
-  <!-- v-bind="forwarded" -->
-  <!-- :style="{ height: gridHeight }" -->
   <ag-grid-vue
     v-bind="forwarded"
     :style="{ height: gridHeight }"

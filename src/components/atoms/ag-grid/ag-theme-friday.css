@@ -25,7 +25,7 @@
   /* #region customisation icons */
   /* hide all font icons */
   --ag-icon-font-display: none;
-  --ag-icon-size: 16px;
+  --ag-icon-size: 14px;
   /* provide a SVG icon */
   /* https://www.ag-grid.com/vue-data-grid/custom-icons/#set-the-icons-through-gridoptions-javascript */
   --ag-icon-image-checkbox-unchecked: url('@/assets/icons/IconSquare.svg');
