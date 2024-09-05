@@ -44,7 +44,7 @@
 }
 
 .ag-theme-friday .ag-header-cell {
-  @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4 hover:bg-red-300;
+  @apply f-text-regular-12 text-black-40 py-8 px-12 gap-4;
 }
 /* #endregion */
 
@@ -62,6 +62,5 @@
 }
 
 .ag-theme-friday .friday-default-row {
-  /* @apply; */
 }
 /* #endregion */

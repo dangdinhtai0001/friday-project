@@ -1,34 +1,11 @@
 <template>
-  <div class="flex flex-col gap-12">
-    <!-- #region function bar -->
-    <div class="flex rounded-8 p-8 gap-16 items-center bg-black-10">
-      <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconPlus" /> </Button>
-      <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconAdjustments" /> </Button>
-      <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconArrowsSort" /> </Button>
-    </div>
-    <!-- #endregion -->
-    <ag-grid-vue
-      style="height: 440px"
-      class="ag-theme-friday"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :defaultColDef="defaultColDef"
-      :rowClass="rowClass"
-      rowHeight="40px"
-      rowSelection="multiple"
-    />
+  <div class="h-[1500px] bg-red-100">
+    <ag-grid-container :columnDefs="columnDefs" :rowData="rowData" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import 'ag-grid-community/styles/ag-grid.css' // Mandatory CSS required by the Data Grid
-import 'ag-grid-community/styles/ag-theme-alpine.css' // Optional Theme applied to the Data Grid
-import '@/assets/styles/ag-theme-friday.css'
-import { AgGridVue } from 'ag-grid-vue3'
-import { type ColDef } from 'ag-grid-community'
-import { Button } from '@/components/atoms/ui/button'
-import { SvgIcon } from '@/components/atoms/icons'
+import { AgGridContainer } from '@/components/atoms/data-grid'
 
 const columnDefs = [
   { checkboxSelection: true, headerCheckboxSelection: true, width: 24 + 8 * 2 },
@@ -39,6 +16,7 @@ const columnDefs = [
   { headerName: 'Date', field: 'date' },
   { headerName: 'Status', field: 'status' }
 ]
+
 const rowData = [
   {
     orderId: '#CM9801',
@@ -281,15 +259,4 @@ const rowData = [
     status: 'Rejected'
   }
 ]
-
-const defaultColDef = computed<ColDef>(() => {
-  return {
-    cellClass: ['friday-default-cell'],
-    wrapText: false
-  }
-})
-
-const rowClass = computed<string | string[]>(() => {
-  return ['friday-default-row']
-})
 </script>
