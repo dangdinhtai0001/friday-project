@@ -8,7 +8,7 @@
         <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconAdjustments" /> </Button>
         <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconArrowsSort" /> </Button>
         <Button class="flex p-4 gap-4 rounded-8" @click="handleOnRefresh">
-          <svg-icon v-if="isFetching" name="IconRefresh" class="animate-spin" />
+          <svg-icon v-if="isFetchingUsers" name="IconRefresh" class="animate-spin" />
           <svg-icon v-else name="IconRefresh" />
         </Button>
       </div>
@@ -33,28 +33,40 @@
     />
     <!-- #endregion -->
     <!-- #region pagination -->
-    <div class="flex justify-between border">
+    <div class="flex justify-between items-center">
       <!-- #region page size -->
-      <Select defaultValue="20">
-        <SelectTrigger class="w-[180px]">
+      <Select v-model:model-value="limit" :defaultValue="limitConfig.defaultValue">
+        <SelectTrigger class="flex px-8 py-4 gap-4 w-fit h-28 border-0">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <!-- <SelectLabel>Fruits</SelectLabel> -->
-            <SelectItem value="10"> 10 </SelectItem>
-            <SelectItem value="20"> 20 </SelectItem>
-            <SelectItem value="50"> 50 </SelectItem>
-            <SelectItem value="100"> 100 </SelectItem>
-          </SelectGroup>
+        <SelectContent class="rounded-8">
+          <SelectItem
+            v-for="option in limitConfig.options"
+            :key="option"
+            :value="option"
+            class="cursor-pointer rounded-8 hover:bg-black-10"
+          >
+            {{ option }}
+          </SelectItem>
         </SelectContent>
       </Select>
       <!-- #endregion -->
       <!-- #region pagiantion -->
-      <Pagination v-slot="{ page }" :total="100" :sibling-count="1" show-edges :default-page="2">
-        <PaginationList v-slot="{ items }" class="flex items-center gap-1">
-          <PaginationFirst />
-          <PaginationPrev />
+      <Pagination
+        v-slot="{ page }"
+        :total="Number(totalRecords)"
+        :sibling-count="1"
+        :show-edges="true"
+        :default-page="1"
+        :items-per-page="Number(limit)"
+      >
+        <PaginationList v-slot="{ items }" class="flex items-center gap-8 rounded-8">
+          <PaginationFirst
+            class="flex w-28 h-28 rounded-8 p-4 border-0 hover:bg-black-10 hover:cursor-pointer"
+          />
+          <PaginationPrev
+            class="flex w-28 h-28 rounded-8 p-4 border-0 hover:bg-black-10 hover:cursor-pointer"
+          />
 
           <template v-for="(item, index) in items">
             <PaginationListItem
@@ -63,15 +75,27 @@
               :value="item.value"
               as-child
             >
-              <Button class="w-10 h-10 p-0" :variant="item.value === page ? 'default' : 'outline'">
+              <!-- <Button class="w-28 h-28 p-0 m-0 hover:bg-black-10 rounded-8"> -->
+              <Button
+                :class="
+                  clsx('w-28 h-28 p-0 m-0 hover:bg-black-10 rounded-8', {
+                    'bg-black-5': item.value === page
+                  })
+                "
+              >
+                <!-- :variant="item.value === page ? 'default' : 'outline'" -->
                 {{ item.value }}
               </Button>
             </PaginationListItem>
             <PaginationEllipsis v-else :key="item.type" :index="index" />
           </template>
 
-          <PaginationNext />
-          <PaginationLast />
+          <PaginationNext
+            class="flex w-28 h-28 rounded-8 p-4 border-0 hover:bg-black-10 hover:cursor-pointer"
+          />
+          <PaginationLast
+            class="flex w-28 h-28 rounded-8 p-4 border-0 hover:bg-black-10 hover:cursor-pointer"
+          />
         </PaginationList>
       </Pagination>
       <!-- #endregion -->
@@ -94,31 +118,52 @@ import {
   PaginationListItem,
   PaginationNext,
   PaginationPrev
-} from '@/components/atoms/ui/pagination'
+} from '@/components/atoms/pagination'
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue
-} from '@/components/atoms/ui/select'
+} from '@/components/atoms/select'
 import { SvgIcon } from '@/components/atoms/icons'
 import { AgGridContainer } from '@/components/atoms/ag-grid'
-import { useFetch } from '@/composables/useFetch'
-import { type ExtendedGridOptions } from './types'
+import type { ExtendedGridOptions, PaginationModel } from './types'
 import type { SelectionChangedEvent } from '@ag-grid-community/core'
+import { useQuery } from '@tanstack/vue-query'
+import { getUsers, headUsers } from '@/api/users'
+import clsx from 'clsx'
 
-const { data, isFetching, refetch } = useFetch(
-  ['api/v1/orders'],
-  'http://127.0.0.1:3658/m1/657008-0-default/api/v1/orders',
-  {
-    method: 'GET'
+// #region pagination
+const limitConfig = { defaultValue: '10', options: ['10', '20', '50', '100'] }
+const limit = ref(limitConfig.defaultValue)
+
+// #endregion
+
+const {
+  data: usersData,
+  isFetching: isFetchingUsers,
+  refetch: refetchUsers
+} = useQuery({
+  queryKey: ['GET::users'],
+  queryFn: async () => {
+    return await getUsers()
   }
-)
+})
 
-const rowData = ref<any>(data)
+const { data: totalRecords, refetch: refetchTotalRecords } = useQuery({
+  queryKey: ['HEAD::users'],
+  queryFn: async () => {
+    return await headUsers()
+  }
+})
+
+const paginationModel = ref<PaginationModel>({
+  total: Number(totalRecords.value),
+  limit: 10,
+  offset: 0
+})
+const rowData = ref<any>(usersData)
 
 const selectedRows = ref<any>([])
 
@@ -127,7 +172,10 @@ const forwarded = useForwardProps<ExtendedGridOptions>(props)
 
 // #region function
 const handleOnRefresh = () => {
-  refetch()
+  refetchUsers()
+  refetchTotalRecords()
+
+  paginationModel.value.total = Number(totalRecords)
 }
 
 const onSelectionChanged = (event: SelectionChangedEvent) => {

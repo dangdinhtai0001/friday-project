@@ -9,11 +9,20 @@ import { DataGridContainer } from '@/components/organisms/data-grid'
 
 const columnDefs = [
   { checkboxSelection: true, headerCheckboxSelection: true, width: 24 + 8 * 2 },
-  { headerName: 'Order ID', field: 'orderId' },
-  { headerName: 'User', field: 'user' },
-  { headerName: 'Project', field: 'project' },
-  { headerName: 'Address', field: 'address' },
-  { headerName: 'Date', field: 'date' },
-  { headerName: 'Status', field: 'status' }
+  { headerName: 'User ID', field: 'id' },
+  { headerName: 'First Name', field: 'firstName' },
+  { headerName: 'Last Name', field: 'lastName' },
+  { headerName: 'Email', field: 'email' },
+  { headerName: 'Phone Number', field: 'phoneNumber' },
+  { headerName: 'Date of Birth', field: 'dateOfBirth' },
+  { headerName: 'Gender', field: 'gender' },
+  { headerName: 'Street', field: 'address.street' },
+  { headerName: 'City', field: 'address.city' },
+  { headerName: 'State', field: 'address.state' },
+  { headerName: 'Postal Code', field: 'address.postalCode' },
+  { headerName: 'Country', field: 'address.country' },
+  { headerName: 'Profile Picture URL', field: 'profilePictureUrl' },
+  { headerName: 'Created At', field: 'createdAt' },
+  { headerName: 'Updated At', field: 'updatedAt' }
 ]
 </script>

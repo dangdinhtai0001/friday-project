@@ -19,3 +19,9 @@ interface functionOptions {
 }
 
 export interface ExtendedGridOptions extends GridOptions {}
+
+export interface PaginationModel {
+  total: number
+  limit: number
+  offset: number
+}

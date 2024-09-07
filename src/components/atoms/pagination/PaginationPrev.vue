@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue'
 import { PaginationPrev, type PaginationPrevProps } from 'radix-vue'
-import { ChevronLeft } from 'lucide-vue-next'
-import {
-  Button,
-} from '@/components/atoms/ui/button'
+import { Button } from '@/components/atoms/ui/button'
 import { cn } from '@/composables/utils'
+import { SvgIcon } from '@/components/atoms/icons'
 
-const props = withDefaults(defineProps<PaginationPrevProps & { class?: HTMLAttributes['class'] }>(), {
-  asChild: true,
-})
+const props = withDefaults(
+  defineProps<PaginationPrevProps & { class?: HTMLAttributes['class'] }>(),
+  {
+    asChild: true
+  }
+)
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props
@@ -22,7 +23,7 @@ const delegatedProps = computed(() => {
   <PaginationPrev v-bind="delegatedProps">
     <Button :class="cn('w-10 h-10 p-0', props.class)" variant="outline">
       <slot>
-        <ChevronLeft class="h-4 w-4" />
+        <svg-icon name="IconChevronLeft" class="w-16" />
       </slot>
     </Button>
   </PaginationPrev>
