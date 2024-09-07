@@ -4,13 +4,14 @@ import DashboardLayout from '@/layouts/dashboard/index.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
+    name: 'redirect::overview',
     path: '/',
     component: DashboardLayout,
     redirect: '/overview',
     meta: {
-      breadcrumb: false
+      breadcrumb: false,
+      hidden: true
     },
-    name: 'Overview',
     children: [
       {
         path: 'overview',
