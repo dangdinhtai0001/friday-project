@@ -8,12 +8,13 @@ import App from './App.vue'
 import router from './router'
 
 // load
-import { loadSvg, initialVueQuery } from '@/plugins'
+import { loadSvg, initialVueQuery, initialLottie } from '@/plugins'
 
 const app = createApp(App)
 
 loadSvg(app)
 initialVueQuery(app)
+initialLottie(app)
 
 app.use(createPinia())
 app.use(router)

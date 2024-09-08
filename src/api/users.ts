@@ -1,4 +1,4 @@
-import kyInstance from '@/plugins/ky'
+import kyInstance from '@/plugins/ky.plugin.ts'
 
 export const getUsers = async () => {
   try {
