@@ -30,6 +30,9 @@
       v-bind="forwarded"
       :rowData="rowData"
       :onSelectionChanged="onSelectionChanged"
+      :loading="isFetchingUsers"
+      :loading-overlay-component="LoadingOverlay"
+      :no-rows-overlay-component="NoRowOverlay"
     />
     <!-- #endregion -->
     <!-- #region pagination -->
@@ -106,7 +109,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+
 import { useForwardProps } from 'radix-vue'
+import type { SelectionChangedEvent } from '@ag-grid-community/core'
+import { useQuery } from '@tanstack/vue-query'
+import clsx from 'clsx'
+
+// #region local import
 import { Button } from '@/components/atoms/ui/button'
 import { Separator } from '@/components/atoms/ui/separator'
 import {
@@ -128,17 +137,14 @@ import {
 } from '@/components/atoms/select'
 import { SvgIcon } from '@/components/atoms/icons'
 import { AgGridContainer } from '@/components/atoms/ag-grid'
-import type { ExtendedGridOptions, PaginationModel } from './types'
-import type { SelectionChangedEvent } from '@ag-grid-community/core'
-import { useQuery } from '@tanstack/vue-query'
+import type { ExtendedGridOptions } from './types'
 import { getUsers, headUsers } from '@/api/users'
-import clsx from 'clsx'
+import LoadingOverlay from './overlays/LoadingOverlay.vue'
+import NoRowOverlay from './overlays/NoRowOverlay.vue'
+// #endregion
 
-// #region pagination
 const limitConfig = { defaultValue: '10', options: ['10', '20', '50', '100'] }
 const limit = ref(limitConfig.defaultValue)
-
-// #endregion
 
 const {
   data: usersData,
@@ -148,38 +154,35 @@ const {
   queryKey: ['GET::users'],
   queryFn: async () => {
     return await getUsers()
-  }
+  },
+  retry: 0
 })
 
 const { data: totalRecords, refetch: refetchTotalRecords } = useQuery({
   queryKey: ['HEAD::users'],
   queryFn: async () => {
     return await headUsers()
-  }
+  },
+  retry: 0
 })
 
-const paginationModel = ref<PaginationModel>({
-  total: Number(totalRecords.value),
-  limit: 10,
-  offset: 0
-})
 const rowData = ref<any>(usersData)
 
 const selectedRows = ref<any>([])
-
-const props = defineProps<ExtendedGridOptions>()
-const forwarded = useForwardProps<ExtendedGridOptions>(props)
 
 // #region function
 const handleOnRefresh = () => {
   refetchUsers()
   refetchTotalRecords()
-
-  paginationModel.value.total = Number(totalRecords)
 }
 
 const onSelectionChanged = (event: SelectionChangedEvent) => {
   selectedRows.value = event.api.getSelectedRows()
 }
 //  #region
+
+//  #region forward props
+const props = defineProps<ExtendedGridOptions>()
+const forwarded = useForwardProps<ExtendedGridOptions>(props)
+//  #endregion
 </script>
