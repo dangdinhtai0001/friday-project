@@ -1,81 +1,13 @@
 <template>
-  <!-- https://dev.to/webdeasy/25-awesome-loading-animations-where-you-like-to-wait-1b5f -->
-  <div class="loader">
-    <div class="inner one" />
-    <div class="inner two" />
-    <div class="inner three" />
+  <div class="w-[50%] h-[50%]">
+    <Vue3Lottie :animationData="SearchingAnimation" />
+    <div class="f-text-regular-14 text-black-40">We haven't found any document</div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Vue3Lottie } from 'vue3-lottie'
+import SearchingAnimation from '@/assets/lottie/searching-animation.json'
+</script>
 
-<style scoped>
-.loader {
-  position: absolute;
-  top: calc(50% - 32px);
-  left: calc(50% - 32px);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  perspective: 800px;
-}
-
-.inner {
-  position: absolute;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.inner.one {
-  left: 0%;
-  top: 0%;
-  animation: rotate-one 1s linear infinite;
-  /* border-bottom: 3px solid #efeffa; */
-  @apply border-b-4 border-black-40;
-}
-
-.inner.two {
-  right: 0%;
-  top: 0%;
-  animation: rotate-two 1s linear infinite;
-  /* border-right: 3px solid #efeffa; */
-  @apply border-r-4 border-black-40;
-}
-
-.inner.three {
-  right: 0%;
-  bottom: 0%;
-  animation: rotate-three 1s linear infinite;
-  /* border-top: 3px solid #efeffa; */
-  @apply border-t-4 border-black-40;
-}
-
-@keyframes rotate-one {
-  0% {
-    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
-  }
-}
-
-@keyframes rotate-two {
-  0% {
-    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
-  }
-}
-
-@keyframes rotate-three {
-  0% {
-    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
-  }
-}
-</style>
+<style scoped></style>

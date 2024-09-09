@@ -1,4 +1,4 @@
-import kyInstance from '@/plugins/ky.plugin.ts'
+import kyInstance from '@/plugins/ky.plugin'
 
 export const getUsers = async () => {
   try {
@@ -15,7 +15,6 @@ export const headUsers = async () => {
   try {
     // Gửi yêu cầu HEAD để lấy thông tin tiêu đề
     const response = await kyInstance.head('users', {})
-    console.log('Response headers:', [...response.headers.entries()])
     const totalRecords = response.headers.get('X-Total-Count')
 
     return totalRecords
