@@ -14,7 +14,11 @@ const columnDefs = [
   { headerName: 'First Name', field: 'firstName' },
   { headerName: 'Last Name', field: 'lastName' },
   { headerName: 'Last Name', field: 'lastName' },
-  { headerName: 'Status', field: 'status', CellRenderer: StatusCell },
+  {
+    headerName: 'Status',
+    field: 'status',
+    cellRenderer: StatusCell
+  },
   { headerName: 'Email', field: 'email' },
   { headerName: 'Phone Number', field: 'phoneNumber' },
   { headerName: 'Date of Birth', field: 'dateOfBirth' },
