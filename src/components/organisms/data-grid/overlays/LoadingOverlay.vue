@@ -1,7 +1,9 @@
 <template>
-  <div class="w-[50%] h-[50%]">
-    <Vue3Lottie :animationData="SearchingAnimation" />
-    <div class="f-text-regular-14 text-black-40">We haven't found any document</div>
+  <div class="flex flex-col items-center justify-center h-full w-full bg-black-5">
+    <div class="w-[50%] h-[50%]">
+      <Vue3Lottie :animationData="SearchingAnimation" />
+      <div class="f-text-regular-14 text-black-40" />
+    </div>
   </div>
 </template>
 

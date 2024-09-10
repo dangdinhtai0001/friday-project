@@ -6,12 +6,15 @@
 
 <script lang="ts" setup>
 import { DataGridContainer } from '@/components/organisms/data-grid'
+import StatusCell from '@/components/organisms/data-grid/cells/StatusCell.vue'
 
 const columnDefs = [
   { checkboxSelection: true, headerCheckboxSelection: true, width: 24 + 8 * 2 },
   { headerName: 'User ID', field: 'id' },
   { headerName: 'First Name', field: 'firstName' },
   { headerName: 'Last Name', field: 'lastName' },
+  { headerName: 'Last Name', field: 'lastName' },
+  { headerName: 'Status', field: 'status', CellRenderer: StatusCell },
   { headerName: 'Email', field: 'email' },
   { headerName: 'Phone Number', field: 'phoneNumber' },
   { headerName: 'Date of Birth', field: 'dateOfBirth' },
