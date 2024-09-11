@@ -1,1 +1,2 @@
-export { default as StatusBadgeCellRenderer } from './StatusBadge.vue'
+export { default as StatusBadgeCellRenderer } from './StatusBadgeCell.vue'
+export { default as AvatarCellRenderer } from './AvatarCell.vue'

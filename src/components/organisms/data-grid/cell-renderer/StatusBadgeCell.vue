@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 // import type { ICellRendererParams } from '@ag-grid-community/core'
-import type { IStatusBadgeCellRendererParams } from './StatusBadge.d.ts'
+import type { IStatusBadgeCellRendererParams } from './StatusBadgeCell.d.ts'
 import { clsx } from 'clsx'
 import { SvgIcon } from '@/components/atoms/icons'
 
