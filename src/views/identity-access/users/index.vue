@@ -1,12 +1,13 @@
 <template>
-  <div class="">
+  <div class="h-[1500px]">
     <data-grid-container :columnDefs="columnDefs" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { DataGridContainer } from '@/components/organisms/data-grid'
-import StatusCell from '@/components/organisms/data-grid/cells/StatusCell.vue'
+import { StatusBadgeCellRenderer } from '@/components/organisms/data-grid/cell-renderer'
+import type { ICellEditorRendererParams } from '@ag-grid-community/core'
 
 const columnDefs = [
   { checkboxSelection: true, headerCheckboxSelection: true, width: 24 + 8 * 2 },
@@ -17,7 +18,16 @@ const columnDefs = [
   {
     headerName: 'Status',
     field: 'status',
-    cellRenderer: StatusCell
+    cellRenderer: StatusBadgeCellRenderer,
+    cellRendererParams: {
+      getTextClass: (params: ICellEditorRendererParams): Record<string, boolean> => {
+        return {
+          'text-secondary-orange': params.value == 'PENDING',
+          'text-secondary-green': params.value == 'ACTIVE',
+          'text-secondary-red': params.value == 'INACTIVE'
+        }
+      }
+    }
   },
   { headerName: 'Email', field: 'email' },
   { headerName: 'Phone Number', field: 'phoneNumber' },

@@ -2,6 +2,7 @@
 import daisyui from 'daisyui'
 import animate from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
+import tailwindScrollbar from 'tailwind-scrollbar'
 import { textStylesComponents } from './config/tailwind/custom-components.ts'
 import { pastelLight, pastelDark } from './config/tailwind/daisy-plugins.ts'
 import {
@@ -85,6 +86,7 @@ export default {
   plugins: [
     animate,
     daisyui,
+    tailwindScrollbar,
     plugin(function ({ addComponents }) {
       addComponents({ ...textStylesComponents })
     })
