@@ -3,6 +3,8 @@ import daisyui from 'daisyui'
 import animate from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
 import tailwindScrollbar from 'tailwind-scrollbar'
+import { colors } from './config/tailwind/colors.ts'
+import { keyframes, animations } from './config/tailwind/animation.ts'
 import { textStylesComponents } from './config/tailwind/custom-components.ts'
 import { pastelLight, pastelDark } from './config/tailwind/daisy-plugins.ts'
 import {
@@ -42,45 +44,9 @@ export default {
       fontSize: { ...fontSize },
       fontWeight: { ...fontWeight },
       fontFamily: { ...fontFamily },
-      colors: {
-        // black
-        'black-100': 'var(--black-100)',
-        'black-80': 'var(--black-80)',
-        'black-40': 'var(--black-40)',
-        'black-20': 'var(--black-20)',
-        'black-10': 'var(--black-10)',
-        'black-5': 'var(--black-5)',
-        // white
-        'white-100': 'var(--white-100)',
-        'white-80': 'var(--white-80)',
-        'white-40': 'var(--white-40)',
-        'white-20': 'var(--white-20)',
-        'white-10': 'var(--white-10)',
-        'white-5': 'var(--white-5)',
-        // primary
-        'primary-brand': 'var(--primary-brand)',
-        'primary-blue': 'var(--primary-blue)',
-        'primary-purple': 'var(--primary-purple)',
-        'primary-purple-50': 'var(--primary-purple-50)',
-        'primary-light': 'var(--primary-light)',
-        'primary-background': 'var(--primary-background)',
-        // secondary
-        'secondary-indigo': 'var(--secondary-indigo)',
-        'secondary-purple': 'var(--secondary-purple)',
-        'secondary-cyan': 'var(--secondary-cyan)',
-        'secondary-blue': 'var(--secondary-blue)',
-        'secondary-green': 'var(--secondary-green)',
-        'secondary-mint': 'var(--secondary-mint)',
-        'secondary-yellow': 'var(--secondary-yellow)',
-        'secondary-orange': 'var(--secondary-orange)',
-        'secondary-red': 'var(--secondary-red)',
-        //  background
-        'background-1': 'var(--background-1)',
-        'background-2': 'var(--background-2)',
-        'background-3': 'var(--background-3)',
-        'background-4': 'var(--background-4)',
-        'background-5': 'var(--background-5)'
-      }
+      colors: { ...colors },
+      keyframes: { ...keyframes },
+      animations: { ...animations }
     }
   },
   plugins: [

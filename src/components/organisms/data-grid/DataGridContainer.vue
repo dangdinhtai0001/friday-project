@@ -5,7 +5,9 @@
       <!-- #region function group 00 -->
       <div class="flex rounded-8 p-8 gap-8 items-center">
         <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconPlus" /> </Button>
-        <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconAdjustments" /> </Button>
+        <Button class="flex p-4 gap-4 rounded-8" @Click="handleOnClickFilter"
+          ><svg-icon name="IconAdjustments" />
+        </Button>
         <Button class="flex p-4 gap-4 rounded-8"><svg-icon name="IconArrowsSort" /> </Button>
         <Button class="flex p-4 gap-4 rounded-8" @click="handleOnRefresh">
           <svg-icon v-if="isFetchingUsers" name="IconRefresh" class="animate-spin" />
@@ -24,6 +26,13 @@
       </div>
       <!-- #endregion -->
     </div>
+    <!-- #endregion -->
+    <!-- #region filter zone -->
+    <Collapsible v-model:open="isFiltering">
+      <CollapsibleContent class="border rounded-8">
+        <div class="h-[300px] bg-secondary-green">content</div>
+      </CollapsibleContent>
+    </Collapsible>
     <!-- #endregion -->
     <!-- #region data grid container -->
     <ag-grid-container
@@ -117,6 +126,7 @@ import { useQuery } from '@tanstack/vue-query'
 import clsx from 'clsx'
 
 //  #region forward props
+import { Collapsible, CollapsibleContent } from '@/components/atoms/ui/collapsible'
 import { Button } from '@/components/atoms/ui/button'
 import { Separator } from '@/components/atoms/ui/separator'
 import {
@@ -144,6 +154,8 @@ import LoadingOverlay from './overlays/LoadingOverlay.vue'
 import NoRowOverlay from './overlays/NoRowOverlay.vue'
 
 //  #endregion
+
+const isFiltering = ref(false)
 
 const limitConfig = { defaultValue: '10', options: ['10', '20', '50', '100'] }
 const limit = ref(limitConfig.defaultValue)
@@ -184,6 +196,10 @@ const handleOnRefresh = () => {
 
 const onSelectionChanged = (event: SelectionChangedEvent) => {
   selectedRows.value = event.api.getSelectedRows()
+}
+
+const handleOnClickFilter = () => {
+  isFiltering.value = !isFiltering.value
 }
 //  #endregion
 
