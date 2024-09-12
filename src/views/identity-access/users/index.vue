@@ -21,7 +21,13 @@ import type {
 import type { UserProfile } from './types.d'
 
 const columnDefs: ColDef[] | ColGroupDef[] = [
-  { checkboxSelection: true, headerCheckboxSelection: true, width: 24 + 8 * 2 },
+  {
+    checkboxSelection: true,
+    headerCheckboxSelection: true,
+    width: 24 + 8 * 2,
+    pinned: 'left',
+    lockPinned: true
+  },
   { headerName: 'User ID', field: 'id' },
   {
     headerName: 'User',
@@ -35,7 +41,7 @@ const columnDefs: ColDef[] | ColGroupDef[] = [
         return params.valueFormatted || ''
       },
       getAvatarUrl: (params: ICellRendererParams<UserProfile, any>): string => {
-        return params.data?.profilePictureUrl || ''
+        return params.data?.profilePictureUrl + '/12' || ''
       }
     }
   },

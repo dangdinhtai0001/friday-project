@@ -1,6 +1,6 @@
 import kyInstance from '@/plugins/ky.plugin'
 
-export const getUsers = async () => {
+export const getUsers = async (): Promise<any> => {
   try {
     const response = await kyInstance.get('users').json()
 
@@ -11,13 +11,13 @@ export const getUsers = async () => {
   }
 }
 
-export const headUsers = async () => {
+export const headUsers = async (): Promise<number | null> => {
   try {
     // Gửi yêu cầu HEAD để lấy thông tin tiêu đề
     const response = await kyInstance.head('users', {})
     const totalRecords = response.headers.get('X-Total-Count')
 
-    return totalRecords
+    return totalRecords ? parseInt(totalRecords, 10) : null
   } catch (error) {
     console.error('Error fetching user count with HEAD:', error)
     throw new Error('Cannot get user count. Please try again later.')

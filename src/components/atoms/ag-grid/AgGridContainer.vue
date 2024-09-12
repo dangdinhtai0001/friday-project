@@ -21,16 +21,16 @@ import './ag-theme-friday.css'
 
 const registerModules = [ClientSideRowModelModule]
 
+const props: GridOptions = defineProps<GridOptions>()
+const forwarded = useForwardProps<GridOptions>(props)
+
 const rowHeight: number = 40
 const gridHeight: string = `${rowHeight * 11}px`
 
 const rowClass = ['friday-default-row']
 const defaultColDef = {
   cellClass: ['friday-default-cell'],
-  wrapText: false
+  wrapText: false,
+  ...props.defaultColDef
 }
-
-const props = defineProps<GridOptions>()
-
-const forwarded = useForwardProps<GridOptions>(props)
 </script>

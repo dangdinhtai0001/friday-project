@@ -33,6 +33,7 @@
       :loading="isFetchingUsers"
       :loading-overlay-component="LoadingOverlay"
       :no-rows-overlay-component="NoRowOverlay"
+      :default-col-def="defaultColDef"
     />
     <!-- #endregion -->
     <!-- #region pagination -->
@@ -107,15 +108,15 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="TData">
 import { ref } from 'vue'
 
 import { useForwardProps } from 'radix-vue'
-import type { SelectionChangedEvent } from '@ag-grid-community/core'
+import type { SelectionChangedEvent, ColDef } from '@ag-grid-community/core'
 import { useQuery } from '@tanstack/vue-query'
 import clsx from 'clsx'
 
-// #region local import
+//  #region forward props
 import { Button } from '@/components/atoms/ui/button'
 import { Separator } from '@/components/atoms/ui/separator'
 import {
@@ -141,16 +142,21 @@ import type { ExtendedGridOptions } from './types'
 import { getUsers, headUsers } from '@/api/users'
 import LoadingOverlay from './overlays/LoadingOverlay.vue'
 import NoRowOverlay from './overlays/NoRowOverlay.vue'
-// #endregion
+
+//  #endregion
 
 const limitConfig = { defaultValue: '10', options: ['10', '20', '50', '100'] }
 const limit = ref(limitConfig.defaultValue)
+
+const defaultColDef: ColDef<TData> = {
+  sortable: false
+}
 
 const {
   data: usersData,
   isFetching: isFetchingUsers,
   refetch: refetchUsers
-} = useQuery({
+} = useQuery<TData>({
   queryKey: ['GET::users'],
   queryFn: async () => {
     return await getUsers()
@@ -179,7 +185,7 @@ const handleOnRefresh = () => {
 const onSelectionChanged = (event: SelectionChangedEvent) => {
   selectedRows.value = event.api.getSelectedRows()
 }
-//  #region
+//  #endregion
 
 //  #region forward props
 const props = defineProps<ExtendedGridOptions>()
