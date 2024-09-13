@@ -4,7 +4,6 @@ import animate from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
 import tailwindScrollbar from 'tailwind-scrollbar'
 import { colors } from './config/tailwind/colors.ts'
-import { keyframes, animations } from './config/tailwind/animation.ts'
 import { textStylesComponents } from './config/tailwind/custom-components.ts'
 import { pastelLight, pastelDark } from './config/tailwind/daisy-plugins.ts'
 import {
@@ -44,9 +43,7 @@ export default {
       fontSize: { ...fontSize },
       fontWeight: { ...fontWeight },
       fontFamily: { ...fontFamily },
-      colors: { ...colors },
-      keyframes: { ...keyframes },
-      animations: { ...animations }
+      colors: { ...colors }
     }
   },
   plugins: [
