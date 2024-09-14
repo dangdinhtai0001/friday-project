@@ -2,6 +2,7 @@
 import daisyui from 'daisyui'
 import animate from 'tailwindcss-animate'
 import plugin from 'tailwindcss/plugin'
+import vueFormTailwind from '@vueform/vueform/tailwind'
 import tailwindScrollbar from 'tailwind-scrollbar'
 import { colors } from './config/tailwind/colors.ts'
 import { textStylesComponents } from './config/tailwind/custom-components.ts'
@@ -50,6 +51,7 @@ export default {
     animate,
     daisyui,
     tailwindScrollbar,
+    vueFormTailwind,
     plugin(function ({ addComponents }) {
       addComponents({ ...textStylesComponents })
     })
