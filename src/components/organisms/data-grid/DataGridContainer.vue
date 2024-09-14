@@ -30,7 +30,8 @@
     <!-- #region filter zone -->
     <Collapsible v-model:open="isFiltering">
       <CollapsibleContent class="border rounded-8">
-        <div class="max-h-[250px] min-h-[200px] bg-secondary-green">content</div>
+        <!-- <div class="max-h-[250px] min-h-[200px] bg-secondary-green">content</div> -->
+        <slot name="filter-container" />
       </CollapsibleContent>
     </Collapsible>
     <!-- #endregion -->

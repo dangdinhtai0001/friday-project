@@ -20,3 +20,19 @@ export interface UserProfile {
   createdAt: string // or Date
   updatedAt: string // or Date
 }
+
+interface UserFilter {
+  updateTimeRange?: {
+    startDate: Date | null
+    endDate: Date | null
+  }
+  creationTimeRange?: {
+    startDate: Date | null
+    endDate: Date | null
+  }
+  dateOfBirthRange?: {
+    startDate: Date | null
+    endDate: Date | null
+  }
+  profileCompleteness?: boolean // true for complete profiles, false for incomplete profiles
+}

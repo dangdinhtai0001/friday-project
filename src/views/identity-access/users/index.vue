@@ -1,6 +1,10 @@
 <template>
-  <div class="h-[1500px]">
-    <data-grid-container :columnDefs="columnDefs" />
+  <div class="">
+    <data-grid-container :columnDefs="columnDefs">
+      <template v-slot:filter-container>
+        <div class="h-[200px] bg-secondary-green" />
+      </template>
+    </data-grid-container>
   </div>
 </template>
 
@@ -18,7 +22,7 @@ import type {
   ValueGetterParams,
   ValueFormatterParams
 } from '@ag-grid-community/core'
-import type { UserProfile } from './types.d'
+import type { UserProfile, UserFilter } from './types.d'
 
 const columnDefs: ColDef[] | ColGroupDef[] = [
   {
@@ -74,4 +78,7 @@ const columnDefs: ColDef[] | ColGroupDef[] = [
   { headerName: 'Created At', field: 'createdAt' },
   { headerName: 'Updated At', field: 'updatedAt' }
 ]
+
+// #region filter form
+//  #endregion
 </script>
