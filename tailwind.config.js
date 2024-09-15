@@ -14,6 +14,7 @@ import {
   borderRadius,
   size
 } from './config/tailwind/custom-theme.ts'
+import { animation, keyframes } from './config/tailwind/animation.ts'
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,vue}'],
@@ -43,7 +44,9 @@ export default {
       fontSize: { ...fontSize },
       fontWeight: { ...fontWeight },
       fontFamily: { ...fontFamily },
-      colors: { ...colors }
+      colors: { ...colors },
+      animation: { ...animation },
+      keyframes: { ...keyframes }
     }
   },
   plugins: [
