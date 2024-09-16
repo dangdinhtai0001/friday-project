@@ -83,7 +83,7 @@
       </TreeRoot>
     </div>
     <!-- #endregion: frame 1  -->
-    <!-- #region log -->
+    <!-- #region logo -->
     <div class="logo flex gap-4 items-center justify-center mt-auto">
       <component :is="Logo" class="w-20" />
       <div v-if="!isCollapsed">vue</div>

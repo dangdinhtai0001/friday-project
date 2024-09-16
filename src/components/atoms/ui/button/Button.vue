@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
     :as-child="asChild"
     :class="
       cn(
-        'transform ease-in-out transition-transform active:scale-75 duration-300 hover:scale-110',
+        'transform ease-in-out transition-transform active:scale-95 duration-300 hover:scale-105',
         buttonVariants({ variant, size }),
         props.class
       )

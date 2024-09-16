@@ -15,7 +15,7 @@
             onChangeAsync: onChangeFirstName
           }"
         >
-          <template v-slot="{ field, state }">
+          <template v-slot="{ field }">
             <form-item
               :field="field"
               label="First Name"
@@ -26,7 +26,7 @@
                 :id="field.name"
                 :name="field.name"
                 :modelValue="field.state.value"
-                @input="(e) => field.handleChange((e.target as HTMLInputElement).value)"
+                @input="(e: any) => field.handleChange((e.target as HTMLInputElement).value)"
                 @blur="field.handleBlur"
               />
             </form-item>
@@ -45,7 +45,7 @@
             onChangeAsync: onChangeFirstName
           }"
         >
-          <template v-slot="{ field, state }">
+          <template v-slot="{ field }">
             <form-item
               :field="field"
               label="Last Name"
@@ -56,7 +56,7 @@
                 :id="field.name"
                 :name="field.name"
                 :modelValue="field.state.value"
-                @input="(e) => field.handleChange((e.target as HTMLInputElement).value)"
+                @input="(e: any) => field.handleChange((e.target as HTMLInputElement).value)"
                 @blur="field.handleBlur"
               />
             </form-item>
@@ -64,9 +64,11 @@
         </form.Field>
       </div>
     </form>
-    <RangeCalendar v-model="value" class="rounded-md border" />
-    {{ value }}
   </div>
+  <div class="w-fit">
+    <Calendar v-model="value" :weekday-format="'short'" class="border max-w-[360px]" />
+  </div>
+  {{ value }}
 </template>
 
 <script setup lang="ts">
@@ -75,17 +77,11 @@ import { FormItem } from '@/components/molecules/form'
 import { Input } from '@/components/atoms/ui/input'
 
 import { type Ref, ref } from 'vue'
-import type { DateRange } from 'radix-vue'
-import { getLocalTimeZone, today } from '@internationalized/date'
-import { RangeCalendar } from '@/components/atoms/ui/range-calendar'
+import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
+import { Calendar } from '@/components/atoms/calendar'
 
-const start = today(getLocalTimeZone())
-const end = start.add({ days: 7 })
+const value = ref(today(getLocalTimeZone())) as Ref<DateValue>
 
-const value = ref({
-  start,
-  end
-}) as Ref<DateRange>
 // ----------------------------------
 const form = useForm({
   defaultValues: {
@@ -98,7 +94,7 @@ const form = useForm({
   }
 })
 
-const handleOnSubmit = async (e) => {
+const handleOnSubmit = async (e: any) => {
   e.preventDefault()
   e.stopPropagation()
   form.handleSubmit()
