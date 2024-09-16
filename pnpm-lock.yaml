@@ -20,6 +20,9 @@ importers:
       '@ag-grid-community/vue3':
         specifier: ^32.1.0
         version: 32.1.0(typescript@5.4.5)
+      '@internationalized/date':
+        specifier: ^3.5.5
+        version: 3.5.5
       '@tanstack/vue-form':
         specifier: ^0.32.0
         version: 0.32.0(vue@3.4.38(typescript@5.4.5))
