@@ -65,22 +65,12 @@
       </div>
     </form>
   </div>
-  <div class="w-fit">
-    <Calendar v-model="value" :weekday-format="'short'" class="border max-w-[360px]" />
-  </div>
-  {{ value }}
 </template>
 
 <script setup lang="ts">
 import { useForm } from '@tanstack/vue-form'
 import { FormItem } from '@/components/molecules/form'
 import { Input } from '@/components/atoms/ui/input'
-
-import { type Ref, ref } from 'vue'
-import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
-import { Calendar } from '@/components/atoms/calendar'
-
-const value = ref(today(getLocalTimeZone())) as Ref<DateValue>
 
 // ----------------------------------
 const form = useForm({
