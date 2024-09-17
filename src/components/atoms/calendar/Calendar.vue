@@ -7,7 +7,7 @@ import {
   useForwardPropsEmits,
   useDateFormatter
 } from 'radix-vue'
-import { CalendarGridDay } from '.'
+import { CalendarGridDay, CalendarGridMonth } from '.'
 import { cn } from '@/composables/utils'
 import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms/tabs'
@@ -32,6 +32,8 @@ const placeholder = useVModel(props, 'modelValue', emits, {
   passive: true,
   defaultValue: today(getLocalTimeZone())
 }) as Ref<DateValue>
+
+console.log(typeof placeholder)
 
 const formatter = useDateFormatter('en')
 const selectionModes = ['day', 'month', 'year'] as Array<keyof DateValue>
@@ -73,30 +75,7 @@ const currentSelectionMode = ref<String>('day')
           <calendar-grid-day :grid="grid" :week-days="weekDays" />
         </TabsContent>
         <TabsContent value="month" :force-mount="true">
-          <div class="grid grid-cols-6 gap-2">
-            <div
-              v-for="month in createYear({ dateObj: date })"
-              :key="month.toString()"
-              :class="
-                clsx(
-                  'flex rounded-12 px-8 py-16 gap-8 hover:bg-black-5 cursor-pointer f-text-regular-12',
-                  { 'bg-black-100 text-white-100 hover:bg-black-100': month.month == date.month }
-                )
-              "
-              @click="
-                () => {
-                  const v = month.month.toString()
-                  if (!v || !placeholder) return
-                  if (Number(v) === placeholder?.month) return
-                  placeholder = placeholder.set({
-                    month: Number(v)
-                  })
-                }
-              "
-            >
-              {{ formatter.custom(toDate(month), { month: 'short' }) }}
-            </div>
-          </div>
+          <calendar-grid-month :date="date" :placeholder="placeholder" />
         </TabsContent>
         <TabsContent value="year" :force-mount="true"> YEAR </TabsContent>
       </div>
