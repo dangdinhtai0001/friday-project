@@ -75,7 +75,7 @@ const currentSelectionMode = ref<String>('day')
           <calendar-grid-day :grid="grid" :week-days="weekDays" />
         </TabsContent>
         <TabsContent value="month" :force-mount="true">
-          <calendar-grid-month :date="date" :placeholder="placeholder" />
+          <calendar-grid-month :date="date" />
         </TabsContent>
         <TabsContent value="year" :force-mount="true"> YEAR </TabsContent>
       </div>
